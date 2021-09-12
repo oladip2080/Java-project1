@@ -18,6 +18,13 @@ pipeline {
                 echo 'mvn test'
             }   
         }
+        stage ('Code Quality scan')  {
+           steps{
+       withSonarQubeEnv('my-sonar') {
+       sh "mvn -f MyWebApp/pom.xml sonar:sonar"
+            }
+        }
+       }
         stage('Deploy to Tomcat') {
             steps {
                 echo 'Last Stage'
